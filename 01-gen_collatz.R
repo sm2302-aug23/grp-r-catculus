@@ -21,7 +21,7 @@ gen_collatz <- function(n) {
     stop("Number should be a positive integer > 0")
   }
   
-  while (n>1) {
+  while (n>=1) {
   
   # if n is even, the next term is one half of the previous term.  
   if (n %% 2 == 0) {
