@@ -3,10 +3,11 @@
 # Load the necessary libraries
 library(tidyverse)
 library(tibble)
+library(dplyr)
 
 # Set the functions
-is.even <- function(x) {
-  if (x %% 2 == 0) TRUE
+is.even <- function(n) {
+  if (n %% 2 == 0) TRUE
   else FALSE
 }
 
@@ -14,8 +15,19 @@ is.even <- function(x) {
 # is.even(5)
 
 gen_collatz <- function(n) {
-  if (is.even(n)) n/2
-  else 3 * n + 1
+  
+  if (n <= 0) {
+    stop("Number should be a positive integer > 0")
+  }
+  
+  while (n>1) {
+    
+  if (n %% 2 == 0) {
+    n <- n/2 }
+  
+  else {
+    n <- 3 * n + 1 }
+  }
 }
 
 # gen_collatz(5)
