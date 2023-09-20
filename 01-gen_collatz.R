@@ -17,7 +17,7 @@ is.even <- function(n) {
 gen_collatz <- function(n) {
   
   # check if n is a positive integer
-  if (n <= 0 || !is.integer(n)) {
+  if (n <= 0) {
     stop("Number should be a positive integer > 0")
   }
   
