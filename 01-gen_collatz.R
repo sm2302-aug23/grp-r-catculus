@@ -17,7 +17,7 @@ is.even <- function(n) {
 gen_collatz <- function(n) {
   
   # check if n is a positive integer
-  if (n <= 0) {
+  if (n <= 0 || n != as.integer(n)) {
     stop("Number should be a positive integer > 0")
   }
   
@@ -33,7 +33,7 @@ gen_collatz <- function(n) {
   }
 }
 
-#gen_collatz(5)
+# gen_collatz(5)
 # gen_collatz(27)
 
 # Apply function to all integers from 1-10,000 and store in a tibble
