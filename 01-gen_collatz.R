@@ -45,6 +45,17 @@ while (n !=1) {
   n_total <- c(n_total, n)
 }
 
-n_total
+n_total <- seq
 
+collatz_df <- tibble(start = integer(0), seq=list(), length= length(0))
+
+for (i in 1:10000) {
+  collatz_seq <- gen_collatz(i)
+  if (!is.null(collatz_seq)) {
+    collatz_df <- add_row(collatz_df, start=i, seq=list(collatz_seq), length=length(list(collatz_seq)))
+  }
+
+}
+
+collatz_df
 
