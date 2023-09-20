@@ -25,15 +25,15 @@ gen_collatz <- function(n) {
   
   # if n is even, the next term is one half of the previous term.  
   if (n %% 2 == 0) {
-    n <- n/2 }
+    return(n/2) }
   
   # if n is odd, the next term is 3 times the previous term plus 1.  
   else {
-    n <- 3 * n + 1 }
+    return(3 * n + 1) }
   }
 }
 
-# gen_collatz(5)
+#gen_collatz(5)
 # gen_collatz(27)
 
 # Apply function to all integers from 1-10,000 and store in a tibble
