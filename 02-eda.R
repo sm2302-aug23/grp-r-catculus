@@ -12,7 +12,7 @@ top10longest <- collatz_df %>%
   t() %>%
   head(1)
   
-#sum(top10longest)
+# sum(top10longest)
 
 # 2. Finding the starting integer with highest maximum value
 
@@ -27,11 +27,14 @@ max_val_int <- collatz_df %>%
 even_odd_mean_sd <- collatz_df %>%
   group_by(parity) %>%
   summarise(
-    even_odd_avg_len = mean(length),
-    even_odd_sd_len = sd(length)
+    avg_len = mean(length),
+    sd_len = sd(length)
   )
   
-even_odd_mean_sd
+even_odd_mean_sd # view the tibble
 
+even_odd_avg_len <- select(even_odd_mean_sd, avg_len) %>%
+  t()
 
-
+even_odd_sd_len <- select(even_odd_mean_sd, sd_len) %>%
+  t()
