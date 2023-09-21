@@ -8,7 +8,11 @@ library(dplyr)
 top10longest <- collatz_df %>%
   select(c(start,length)) %>%
   arrange(desc(length)) %>% # sorting in descending order
-  head(10) # show only top 10 of the sorted desc. order
+  head(10) %>%# show only top 10 of the sorted desc. order
+  t() %>%
+  head(1)
+  
+#sum(top10longest)
 
 # 2. Finding out which starting integer produces a sequence that reaches the highest maximum value
 
