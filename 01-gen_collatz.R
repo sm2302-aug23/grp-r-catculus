@@ -14,7 +14,7 @@ is.even <- function(n) {
 # is.even(2)
 # is.even(5)
 
-gen_collatz <- function(n) {
+collatz_first <- function(n) { # for the first number after the starting integer value
   
   # check if n is a positive integer
   if (n <= 0 || n != as.integer(n)) {
@@ -33,28 +33,37 @@ gen_collatz <- function(n) {
   }
 }
 
-# gen_collatz(5)
-# gen_collatz(27)
+# collatz_first(5)
+# collatz_first(27)
+
+gen_collatz <- function(input) # for the Collatz sequence as a list
+{
+  result <- input
+  while(input !=1)
+  {
+    input <- collatz_first(input)
+    result <- c(result, input)
+  }
+  return(result)
+}
+
+# gen_collatz(20)
+# gen_collatz(36)
 
 # Apply function to all integers from 1-10,000 and store in a tibble
 start <- 1:10000
-
-n_total <- n <- 36 #any random number
-while (n !=1) {
-  n <- gen_collatz(n)
-  n_total <- c(n_total, n)
-}
-
-n_total <- seq
 
 collatz_df <- tibble(start = integer(0), seq=list(), length= length(0))
 
 for (i in 1:10000) {
   collatz_seq <- gen_collatz(i)
   if (!is.null(collatz_seq)) {
-    collatz_df <- add_row(collatz_df, start=i, seq=list(collatz_seq), length=length(list(collatz_seq)))
+    collatz_df <- add_row(collatz_df,
+                          start = i,
+                          seq = list(collatz_seq),
+                          length = length(collatz_seq))
   }
-
+  
 }
 
 collatz_df
