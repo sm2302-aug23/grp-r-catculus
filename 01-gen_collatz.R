@@ -53,7 +53,14 @@ gen_collatz <- function(input) # for the Collatz sequence as a list
 # Apply function to all integers from 1-10,000 and store in a tibble
 start <- 1:10000
 
-collatz_df <- tibble(start = integer(0), seq=list(), length= length(0), max_val= max((0), na.rm=FALSE))
+collatz_df <- tibble(start = integer(0), 
+                     seq=list(), 
+                     length= length(0), 
+                     parity= if ((0)%%2==0) {
+                       print("Even")} 
+                     else {
+                       print ("Odd")},
+                     max_val= max((0), na.rm=FALSE))
 
 for (i in 1:10000) {
   collatz_seq <- gen_collatz(i)
@@ -62,9 +69,15 @@ for (i in 1:10000) {
                           start = i,
                           seq = list(collatz_seq),
                           length = length(collatz_seq),
+                          parity= if ((i)%%2==0) {
+                            print("Even")} 
+                          else {
+                            print ("Odd")},
                           max_val= max((collatz_seq), na.rm = FALSE))
   }
   
 }
+
+print(i)
 
 collatz_df
