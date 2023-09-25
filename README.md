@@ -1,5 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/HUOoSZXh)
-# Assignment 1 (R group)
+# Assignment 1 (R group) by CATculus
 
 > Analysis of the Collatz Conjecture
 
@@ -7,7 +7,8 @@
 - Please also read [`INSTRUCTIONS.md`](INSTRUCTIONS.md) for specific
 submission instructions and marking rubric.
 
-### Task 1: Generating the Collatz Conjecture
+
+# Task 1: Generating the Collatz Conjecture
 Firstly, we load the necessary libraries
 
 ```
@@ -94,13 +95,66 @@ print(i)
 collatz_df
 ```
 
-### Task 3: Investing "backtracking" in sequences
+# Task 2: Exploratory data analysis
+
+#### Tackling questions in task 2 require us to load two packages: tidyverse & dplyr
+
+### Qns 1. Finding the top 10 starting integers that produces the longest sequences
+
+```
+top10longest <- collatz_df %>%
+  select(c(start,length)) %>%
+  arrange(desc(length)) %>%
+  head(10) %>%
+  t() %>%
+  head(1)
+  ```
+
+#### Arranging length(column) by descending order and selecting only the top 10 rows of start(column) by using head() command
+
+### Qns 2. Finding the starting integer with highest maximum value
+
+```
+max_val_int <- collatz_df %>%
+  select(c(start,max_val)) %>%
+  arrange(desc(max_val)) %>%
+  head(1) %>%
+  select(start)
+```
+
+#### The starting integer with the highest maximum value is obtained by arranging the max_val(column) in descending order, then using head() command to get the starting integer with highest maximum value
+
+### Qns 3. Getting the average length and standard deviation of the sequence for even starting integers compared to odd ones
+
+```
+even_odd_mean_sd <- collatz_df %>%
+  group_by(parity) %>%
+  summarise(
+    avg_len = mean(length),
+    sd_len = sd(length)
+  )
+
+even_odd_avg_len <- select(even_odd_mean_sd, avg_len) %>%
+  t()
+
+even_odd_sd_len <- select(even_odd_mean_sd, sd_len) %>%
+  t()
+```
+  
+#### The average length and standard deviation of the sequence for even starting integers compared to the odd ones is obtained by using group_by() command on parity(column) and using summarise() command to get the average length and standard deviation for both even and odd starting integers.
+
+
+# Task 3: Investing "backtracking" in sequences
 Backtracking is when a sequence reaches a value that is less than the starting integer, but then increases again above the starting integer at least once
 before reaching 1.
 
-# Introducing a function that can detect if backtracking in the sequence is present
+### Introducing a function that can detect if backtracking in the sequence is present
 
 ```
+#1. Filtering collatz_df to get starting integers which has backtracking in their sequences
+
+# Introducing a function that can detect if backtracking in the sequence is present
+
 backtrack_present <- function(seq,start) {
   for (i in seq) {
     if (i < start) {
@@ -116,6 +170,7 @@ less_than_start <- TRUE
 if (less_than_start & i > start)
   return(TRUE)
 
+# Applying the function into the sequence and filter collatz_df to get dataframe with sequence that has backtracking in it
 backtracks_df <- collatz_df %>%
   rowwise() %>%
   mutate(backtrack = list(backtrack_present(seq, start)))%>%
@@ -125,13 +180,13 @@ backtracks_df <- collatz_df %>%
 mode_above_starting_integer <- backtracks_df %>%
   as.integer(mode(backtracks_df))
 
-#3. Maximum value after the first backtracking in the sequence
+# Maximum value after the first backtracking in the sequence
 max_after_backtrack <- backtracks_df %>%
   arrange(desc(max_val)) %>%
   head(1) %>%
   select(max_val)
 
-#4. Frequency count for even and odd backtracking integers
+# Frequency count for even and odd backtracking integers
 even_odd_backtrack <- backtracks_df %>%
   count(parity)
 ```
@@ -140,37 +195,41 @@ First, we introduce a function that can detect if there are any backtracking pre
 With the [backtrack_present] function, we apply it into the sequence and filter collatz_df to get the 
 data frame with sequences where backtracking is present with [backtracks_df].
 
-Next, we find the frequently occuring number of times the sequence goes above the starting integer by finding the mode
-with [mode_above_starting_integer]
-  
+Next, we find the frequently occurring number of times the sequence goes above the starting integer by finding the mode
+with [mode_above_starting_integer].
 
-#### Contribution declaration
+After that, we find the maximum value reached after the first backtrack for the sequences with [max_after_backtrack].
 
-## Task 1 
+Lastly, we count the number of occurrences of even and off integers with backtracking present with [even_odd_backtrack]
+
+# Contribution declaration
+
+Task 1:
 @suriyna
 @syirahomar
 @AmeliaElam
 
-## Task 2
-### Qn 1 - @syirahomar
-         - @AmeliaElam
+Task 2:
+Qn 1 - @syirahomar
+     - @AmeliaElam
          
-### Qn 2 - @AmeliaElam
-         - @suriyna
+Qn 2 - @AmeliaElam
+     - @suriyna
          
-### Qn 3 - @syirahomar
-         - @suriyna
+Qn 3 - @syirahomar
+     - @suriyna
          
-## Task 3
+Task 3:
 @AmeliaElam
+@syirahomar
 
-## Task 4
+Task 4:
 @suriyna
 
-## Task 5
+Task 5:
 @suriyna
 
-## Task 6
+Task 6:
 @AmeliaElam
 
 README
