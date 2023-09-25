@@ -11,7 +11,7 @@ top10longest
 # Create scatterplot and identify the top 10 starting integers on the plot
 ggplot(collatz_df, aes(x = start,
                        y = length,
-                       label = ifelse(start %in% top10longest$start, as.character(start),""))) +
+                       label = ifelse(start %in% top10longest[start], as.character(start),""))) +
   geom_point() +
   geom_text(vjust = -0.5, hjust = -0.5) +
   labs(x = "Starting Integer",
