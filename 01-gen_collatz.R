@@ -5,15 +5,6 @@ library(tidyverse)
 library(tibble)
 library(dplyr)
 
-# Set the functions
-is.even <- function(n) {
-  if (n %% 2 == 0) TRUE
-  else FALSE
-}
-
-# is.even(2)
-# is.even(5)
-
 collatz_first <- function(n) { # for the first number after the starting integer value
   
   # check if n is a positive integer
