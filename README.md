@@ -9,7 +9,6 @@ submission instructions and marking rubric.
 
 
 # Task 1: Generating the Collatz Conjecture
-Firstly, we load the necessary libraries
 
 ```
 library(tidyverse)
@@ -17,7 +16,7 @@ library(tibble)
 library(dplyr)
 ```
 
-Next, we create a function of the Collatz Conjecture iteration sequence called `gen_collatz` by developing a  `collatz_first` function to obtain the following number in the sequence.
+Firstly, we load the necessary libraries
 
 ```
 # Set the functions
@@ -59,7 +58,7 @@ gen_collatz <- function(input) # for the Collatz sequence as a list
 # gen_collatz(36)
 ```
 
-We can then apply the function `gen_collatz` to starting integers ranging from 1-10,000 and store the results of the sequence in a tibble, along with other information such as the length of the sequence, parity (odd or even) and the maximum value in the sequence.
+Next, we create a function of the Collatz Conjecture iteration sequence called `gen_collatz` by developing a  `collatz_first` function to obtain the following number in the sequence.
 
 ```
 # Apply function to all integers from 1-10,000 and store in a tibble
@@ -95,11 +94,11 @@ print(i)
 collatz_df
 ```
 
+We can then apply the function `gen_collatz` to starting integers ranging from 1-10,000 and store the results of the sequence in a tibble, along with other information such as the length of the sequence, parity (odd or even) and the maximum value in the sequence.
+
 # Task 2: Exploratory data analysis
 
-#### Tackling questions in task 2 require us to load two packages: tidyverse & dplyr
-
-### Qns 1. Finding the top 10 starting integers that produces the longest sequences
+### Qn 1. Finding the top 10 starting integers that produces the longest sequences
 
 ```
 top10longest <- collatz_df %>%
@@ -110,9 +109,9 @@ top10longest <- collatz_df %>%
   head(1)
   ```
 
-#### Arranging length(column) by descending order and selecting only the top 10 rows of start(column) by using head() command
+Arranging length(column) by descending order and selecting only the top 10 rows of start(column) by using head() command
 
-### Qns 2. Finding the starting integer with highest maximum value
+### Qn 2. Finding the starting integer with highest maximum value
 
 ```
 max_val_int <- collatz_df %>%
@@ -122,9 +121,9 @@ max_val_int <- collatz_df %>%
   select(start)
 ```
 
-#### The starting integer with the highest maximum value is obtained by arranging the max_val(column) in descending order, then using head() command to get the starting integer with highest maximum value
+The starting integer with the highest maximum value is obtained by arranging the max_val(column) in descending order, then using head() command to get the starting integer with highest maximum value
 
-### Qns 3. Getting the average length and standard deviation of the sequence for even starting integers compared to odd ones
+### Qn 3. Getting the average length and standard deviation of the sequence for even starting integers compared to odd ones
 
 ```
 even_odd_mean_sd <- collatz_df %>%
@@ -141,16 +140,16 @@ even_odd_sd_len <- select(even_odd_mean_sd, sd_len) %>%
   t()
 ```
   
-#### The average length and standard deviation of the sequence for even starting integers compared to the odd ones is obtained by using group_by() command on parity(column) and using summarise() command to get the average length and standard deviation for both even and odd starting integers.
+The average length and standard deviation of the sequence for even starting integers compared to the odd ones is obtained by using group_by() command on parity(column) and using summarise() command to get the average length and standard deviation for both even and odd starting integers.
 
 
 # Task 3: Investing "backtracking" in sequences
 Backtracking is when a sequence reaches a value that is less than the starting integer, but then increases again above the starting integer at least once
 before reaching 1.
 
-```
-# Filtering collatz_df to get starting integers which has backtracking in their sequences
+### Qn 1. Filtering collatz_df to get starting integers which has backtracking in their sequences
 
+```
 # Introducing a function that can detect if backtracking in the sequence is present
 
 backtrack_present <- function(seq,start) {
@@ -175,33 +174,100 @@ backtracks_df <- collatz_df %>%
   mutate(backtrack = list(backtrack_present(seq, start)))%>%
   filter(backtrack==TRUE) %>%
   select(!backtrack)
+  ```
+Here, we introduce a function that can detect if there are any backtracking present in the sequence with [backtrack_present]. 
+With the [backtrack_present] function, we apply it into the sequence and filter collatz_df to get the 
+data frame with sequences where backtracking is present with [backtracks_df].
 
+### Qn 2. What is the maximum value reached after the first backtrack for these sequences?
+
+```
 mode_above_starting_integer <- backtracks_df %>%
   as.integer(mode(backtracks_df))
+```
+Next, we find the frequently occurring number of times the sequence goes above the starting integer by finding the mode
+with [mode_above_starting_integer].
 
-# Maximum value after the first backtracking in the sequence
+### Qn 3. Maximum value after the first backtracking in the sequence
 
+```
 max_after_backtrack <- backtracks_df %>%
   arrange(desc(max_val)) %>%
   head(1) %>%
   select(max_val)
+```
+After that, we find the maximum value reached after the first backtrack for the sequences with [max_after_backtrack].
 
-# Frequency count for even and odd backtracking integers
+### Qn 4. Frequency count for even and odd backtracking integers
 
+```
 even_odd_backtrack <- backtracks_df %>%
   count(parity)
 ```
-  
-First, we introduce a function that can detect if there are any backtracking present in the sequence with [backtrack_present]. 
-With the [backtrack_present] function, we apply it into the sequence and filter collatz_df to get the 
-data frame with sequences where backtracking is present with [backtracks_df].
-
-Next, we find the frequently occurring number of times the sequence goes above the starting integer by finding the mode
-with [mode_above_starting_integer].
-
-After that, we find the maximum value reached after the first backtrack for the sequences with [max_after_backtrack].
 
 Lastly, we count the number of occurrences of even and off integers with backtracking present with [even_odd_backtrack]
+
+# Task 4: Visualisations
+
+Loading the ggplot library is necessary to create the visualisations of the Collatz Conjecture
+
+```
+library(ggplot2)
+```
+
+### 1. Scatterplot of starting integers and sequence length
+
+```
+# Use data frame from task 2 for the top 10 starting integer with longest lengths
+top10longest
+
+# Create scatterplot and identify the top 10 starting integers on the plot
+ggplot(collatz_df, aes(x = start,
+                       y = length,
+                       label = ifelse(start %in% top10longest$start, as.character(start),""))) +
+  geom_point() +
+  geom_text(vjust = -0.5, hjust = -0.5) +
+  labs(x = "Starting Integer",
+       y = "Sequence Length",
+       title = "Starting integer and Sequence Length")
+```
+
+A scatterplot of starting integers as the x-axis and the sequence lengths as the y-axis is produced with the help of ggplot.
+
+We also take `top10longest` data frame from Task 2 to obtain the top 10 starting integer with the longest sequence lengths and use this to identify the top 10 starting integers on the plot.
+
+### 2. Scatterplot of starting integers and highest value reached in the sequence
+
+```
+# Create data frame of top 10 starting integers with highest value
+top10highest <- collatz_df %>%
+  arrange(desc(max_val)) %>% # sorting in descending order
+  head(10) %>%
+  select(start, max_val)
+
+# Create scatterplot and highlight the top 10 starting integers on the plot
+ggplot(collatz_df, aes(x = start,        
+                       y = max_val)) +  
+  geom_point() +  
+  geom_point(data = top10highest, aes(col="red")) +
+labs( x = "Starting integer",      
+      y = "Highest value reached in the sequence",    
+      title = "Starting integer and highest value reached in the sequence")
+
+```
+
+In order to be able to highlight the top 10 starting integers, a new data frame must be created containing the top 10 starting integers with the highest values. The scatterplot with the highlighted plots can then be produced.
+
+### 3. Boxplot comparing the distributions of sequence lengths for even and odd starting integers
+
+```
+ggplot(collatz_df, aes(x = parity,
+                       y = length)) +
+  geom_boxplot()
+
+# There are outliers present in the boxplot distribution of the odd starting integers
+```
+Boxplot is created to compare the difference of the distributions of the sequence lengths for even and odd starting integers. Any noticeable differences is taken note.
 
 # Contribution declaration
 
