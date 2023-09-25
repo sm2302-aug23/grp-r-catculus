@@ -7,3 +7,34 @@
 - Please also read [`INSTRUCTIONS.md`](INSTRUCTIONS.md) for specific
 submission instructions and marking rubric.
 
+#### Contribution declaration
+
+## Task 1 
+@suriyna
+@syirahomar
+@AmeliaElam
+
+## Task 2
+### Qn 1 - @syirahomar
+         - @AmeliaElam
+         
+### Qn 2 - @AmeliaElam
+         - @suriyna
+         
+### Qn 3 - @syirahomar
+         - @suriyna
+         
+## Task 3
+@AmeliaElam
+
+## Task 4
+@suriyna
+
+## Task 5
+@suriyna
+
+## Task 6
+@AmeliaElam
+
+README
+@syirahomar
