@@ -10,13 +10,15 @@ submission instructions and marking rubric.
 
 # Task 1: Generating the Collatz Conjecture
 
+Firstly, we load the necessary libraries
+
 ```
 library(tidyverse)
 library(tibble)
 library(dplyr)
 ```
 
-Firstly, we load the necessary libraries
+Next, we create a function of the Collatz Conjecture iteration sequence called `gen_collatz` by developing a  `collatz_first` function to obtain the following number in the sequence.
 
 ```
 # Set the functions
@@ -58,7 +60,7 @@ gen_collatz <- function(input) # for the Collatz sequence as a list
 # gen_collatz(36)
 ```
 
-Next, we create a function of the Collatz Conjecture iteration sequence called `gen_collatz` by developing a  `collatz_first` function to obtain the following number in the sequence.
+We can then apply the function `gen_collatz` to starting integers ranging from 1-10,000 and store the results of the sequence in a tibble, along with other information such as the length of the sequence, parity (odd or even) and the maximum value in the sequence.
 
 ```
 # Apply function to all integers from 1-10,000 and store in a tibble
@@ -93,8 +95,6 @@ print(i)
 
 collatz_df
 ```
-
-We can then apply the function `gen_collatz` to starting integers ranging from 1-10,000 and store the results of the sequence in a tibble, along with other information such as the length of the sequence, parity (odd or even) and the maximum value in the sequence.
 
 # Task 2: Exploratory data analysis
 
