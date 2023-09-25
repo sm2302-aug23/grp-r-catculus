@@ -13,7 +13,10 @@ backtrack_present <- function(seq,start) {
   }
   return(FALSE)
 }
-  
+
+less_than_start <- TRUE
+if (less_than_start & i > start)
+  return(TRUE)
 
 #Applying the function into the sequence and filter collatz_df to get dataframe with sequence that has backtracking in it
 backtracks_df <- collatz_df %>%
