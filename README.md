@@ -7,8 +7,21 @@
 - Please also read [`INSTRUCTIONS.md`](INSTRUCTIONS.md) for specific
 submission instructions and marking rubric.
 
+## Background
 
-# Task 1: Generating the Collatz Conjecture
+The Collatz Conjecture is a mathematical conjecture concerning a
+sequence defined as follows. Start with any positive integer $n$. Then
+each term is obtained from the previous term according to these rules:
+
+1.  If the previous term is even, the next term is one half of the
+    previous term.
+2.  If the previous term is odd, the next term is 3 times the previous
+    term plus 1.
+
+The conjecture is that no matter what value of $n$, the sequence will
+always reach 1.
+
+# Task 1: Generating The Collatz Conjecture
 
 Firstly, we load the necessary libraries
 
@@ -96,7 +109,7 @@ print(i)
 collatz_df
 ```
 
-# Task 2: Exploratory data analysis
+# Task 2: Exploratory Data Analysis
 
 ### Qn 1. Finding the top 10 starting integers that produces the longest sequences
 
@@ -143,7 +156,7 @@ even_odd_sd_len <- select(even_odd_mean_sd, sd_len) %>%
 The average length and standard deviation of the sequence for even starting integers compared to the odd ones is obtained by using group_by() command on parity(column) and using summarise() command to get the average length and standard deviation for both even and odd starting integers.
 
 
-# Task 3: Investing "backtracking" in sequences
+# Task 3: Investing "backtracking" In Sequences
 Backtracking is when a sequence reaches a value that is less than the starting integer, but then increases again above the starting integer at least once
 before reaching 1.
 
@@ -224,7 +237,7 @@ top10longest
 # Create scatterplot and identify the top 10 starting integers on the plot
 ggplot(collatz_df, aes(x = start,
                        y = length,
-                       label = ifelse(start %in% top10longest$start, as.character(start),""))) +
+                       label = ifelse(start %in% top10longest[start], as.character(start),""))) +
   geom_point() +
   geom_text(vjust = -0.5, hjust = -0.5) +
   labs(x = "Starting Integer",
@@ -291,6 +304,20 @@ For every sequence, the number before the iteration ends at 1 is the number 2.
 The reason for this is because for every step of the sequence;
 if the number is odd, the next number is multiplied by 3 and plus 1 (3n+1), which is always even.
 if the number is even, the next number is divided by 2 (n/2) which may be even or odd. This iteration continues until it reaches the numbers 2 & then 1.
+
+# Task 6: Creative Visualisation Challenge
+
+Visualizing some aspect of the Collatz Conjecture sequences that is interesting:
+ 
+```
+ggplot(collatz_df, aes(x= length)) +
+  geom_histogram(aes(fill=parity),
+                 bins=100,
+                 alpha=0.7) +
+  labs(fill=NULL)
+```
+Here, a histogram is used to visualize the length of both even and odd starting integers.
+This shows us that in general, there are more even starting integers compared to the odd ones. 
 
 # Contribution declaration
 
