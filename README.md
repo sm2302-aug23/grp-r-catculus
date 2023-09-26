@@ -122,7 +122,7 @@ top10longest <- collatz_df %>%
   head(1)
   ```
 
-Arranging length(column) by descending order and selecting only the top 10 rows of start(column) by using head() command
+Arranging length(column) by descending order and selecting only the top 10 rows of start(column) by using head() command to get top 10 starting integer with the longest sequences.
 
 ### Qn 2. Finding the starting integer with highest maximum value
 
@@ -316,6 +316,8 @@ ggplot(collatz_df, aes(x= length)) +
                  alpha=0.7) +
   labs(fill=NULL)
 ```
+![](Task6_Rplot.png)
+
 Here, a histogram is used to visualize the length of both even and odd starting integers.
 This shows us that in general, there are more even starting integers compared to the odd ones. 
 
