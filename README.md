@@ -316,9 +316,7 @@ ggplot(collatz_df, aes(x= length)) +
                  alpha=0.7) +
   labs(fill=NULL)
 ```
-![](Task6_Rplot.png)
-
-Here, a histogram is used to visualize the length of both even and odd starting integers.
+![](Task6_Rplot.png) Here, a histogram is used to visualize the length of both even and odd starting integers.
 This shows us that in general, there are more even starting integers compared to the odd ones. 
 
 # Contribution declaration
@@ -329,14 +327,11 @@ Task 1:
 @AmeliaElam
 
 Task 2:
-Qn 1 - @syirahomar
-     - @AmeliaElam
+Qn 1 - @syirahomar @AmeliaElam
          
-Qn 2 - @AmeliaElam
-     - @suriyna
+Qn 2 - @AmeliaElam @suriyna
          
-Qn 3 - @syirahomar
-     - @suriyna
+Qn 3 - @syirahomar @suriyna
          
 Task 3:
 @AmeliaElam
